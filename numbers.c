@@ -1,6 +1,20 @@
 #include<stdio.h>
 #include "list.h"
 
+void display(List_ptr list)
+{
+  NEW_LINE;
+  printf("Updated list is given below : ");
+  NEW_LINE;
+  Node_ptr p_walk = list->head;
+  while (p_walk != NULL)
+  {
+    printf("%d ",p_walk->value);
+    p_walk = p_walk->next;
+  }
+  NEW_LINE;
+}
+
 
 int main(void)
 {
@@ -32,8 +46,8 @@ int main(void)
       printf("Done");
     else
       printf("Something went wrong...");
-      
-    NEW_LINE;
+
+    display(list);
     display_menu();
     scanf("%c",&operation);
   }
