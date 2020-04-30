@@ -38,8 +38,30 @@ Status add_to_start(List_ptr list, int value)
   Node_ptr new_node = create_node(value);
   Node_ptr previous_first_node = list->head;
   list->head = new_node;
-  new_node->value = value;
   new_node->next = previous_first_node;
+  list->count += 1;
+  status = Success;
+  return status;
+}
+
+Status insert_at(List_ptr list, int value, int position)
+{
+  Status status = Failure;
+  if(position > list->count + 1)
+    return status;
+
+  int count=1;
+  Node_ptr p_walk = list->head;
+  count++;
+  while(count<position)
+  {
+    p_walk = p_walk->next;
+    count++;
+  }
+  Node_ptr new_node = create_node(value);
+  Node_ptr temp_node =p_walk->next;
+  p_walk->next = new_node;
+  new_node->next = temp_node;
   list->count += 1;
   status = Success;
   return status;

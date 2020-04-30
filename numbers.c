@@ -19,11 +19,11 @@ void display(List_ptr list)
 int main(void)
 {
   char operation;
-  int value,result;
+  int value,result,position;
   List_ptr list = create_list();
   display_menu();
   scanf("%c",&operation);
-  
+
   while(NOT_EXIT)
   {
     switch (operation){
@@ -38,6 +38,14 @@ int main(void)
       printf("Enter the number you want to add at the start of the list : ");
       scanf("%d",&value);
       result = add_to_start(list,value);
+      break;
+
+    case 'c':
+      printf("Enter the number you want to insert in the list : ");
+      scanf("%d",&value);
+      printf("Enter the position where you want to insert the number : ");
+      scanf("%d",&position);
+      result = insert_at(list,value,position);
       break;
       
     }

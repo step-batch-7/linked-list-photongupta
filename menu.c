@@ -32,8 +32,7 @@ void display_menu(void){
   NEW_LINE;
   printf("(m) exit");
   NEW_LINE;
-  printf("Please enter the alphabet of the operation you would like to perform");
-  NEW_LINE;
+  printf("Please enter the alphabet of the operation you would like to perform : ");
 }
 
 
