@@ -47,6 +47,12 @@ int main(void)
       scanf("%d",&position);
       result = insert_at(list,value,position);
       break;
+
+    case 'd':
+      printf("Enter the unique number you want to add in the list : ");
+      scanf("%d",&value);
+      result = add_unique(list,value);
+      break;
       
     }
     

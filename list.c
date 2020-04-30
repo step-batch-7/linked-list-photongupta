@@ -67,6 +67,21 @@ Status insert_at(List_ptr list, int value, int position)
   return status;
 }
 
+Status add_unique(List_ptr list, int value)
+{ 
+  Status status = Success;
+  Node_ptr p_walk = list->head;
+  while (p_walk != NULL)
+  {
+    if(p_walk->value == value)
+      return status;
+    p_walk = p_walk->next;
+  }
+  add_to_end(list,value);
+  return status;
+}
+
+
 void destroy_list(List_ptr list)
 {
   Node_ptr p_walk = list->head;
