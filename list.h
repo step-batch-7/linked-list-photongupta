@@ -2,6 +2,7 @@
 #define __LIST_H
 
 #define NEW_LINE printf("\n")
+#define NOT_EXIT operation != 'm'
 
 typedef enum
 {
