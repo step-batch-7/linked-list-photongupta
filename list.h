@@ -1,6 +1,8 @@
 #ifndef __LIST_H
 #define __LIST_H
 
+#define NEW_LINE printf("\n")
+
 typedef enum
 {
   Failure,
@@ -25,6 +27,8 @@ typedef struct
 typedef List *List_ptr;
 Node_ptr create_node(int value);
 List_ptr create_list(void);
+
+void display_menu(void);
 
 Status add_to_end(List_ptr, int value);
 Status add_to_start(List_ptr, int value);
