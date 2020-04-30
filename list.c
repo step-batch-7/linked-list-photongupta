@@ -20,7 +20,7 @@ List_ptr create_list(void)
 
 Status add_to_end(List_ptr list, int value)
 { 
-  Status status;
+  Status status = Success;
   Node_ptr new_node = create_node(value);
   if (list->head == NULL)
     list->head = new_node;
@@ -28,19 +28,17 @@ Status add_to_end(List_ptr list, int value)
     list->last->next = new_node;
   list->last = new_node;
   list->count += 1;
-  status = Success;
   return status;
 }
 
 Status add_to_start(List_ptr list, int value)
 { 
-  Status status;
+  Status status = Success;
   Node_ptr new_node = create_node(value);
   Node_ptr previous_first_node = list->head;
   list->head = new_node;
   new_node->next = previous_first_node;
   list->count += 1;
-  status = Success;
   return status;
 }
 
@@ -81,6 +79,15 @@ Status add_unique(List_ptr list, int value)
   return status;
 }
 
+Status remove_from_start(List_ptr list)
+{ 
+  Status status = Success;
+  Node_ptr first_node = list->head;
+  list->head = first_node->next;
+  free(first_node);
+  list->count -= 1;
+  return status;
+}
 
 void destroy_list(List_ptr list)
 {

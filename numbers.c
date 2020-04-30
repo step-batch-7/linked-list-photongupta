@@ -52,6 +52,10 @@ int main(void)
       result = add_unique(list,value);
       break;
 
+    case 'e':
+      result = remove_from_start(list);
+      break;
+
     case 'l':
       display(list);
       result = Success;
