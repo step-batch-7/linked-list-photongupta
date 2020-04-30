@@ -36,10 +36,10 @@ Status add_to_start(List_ptr list, int value)
 { 
   Status status;
   Node_ptr new_node = create_node(value);
-  Node_ptr current_first_node = list->head->next;
-  list->head->next = new_node;
+  Node_ptr previous_first_node = list->head;
+  list->head = new_node;
   new_node->value = value;
-  new_node->next = current_first_node;
+  new_node->next = previous_first_node;
   list->count += 1;
   status = Success;
   return status;
