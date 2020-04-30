@@ -3,8 +3,7 @@
 
 void display(List_ptr list)
 {
-  NEW_LINE;
-  printf("Updated list is given below : ");
+  printf("Elements of the list are : ");
   NEW_LINE;
   Node_ptr p_walk = list->head;
   while (p_walk != NULL)
@@ -14,7 +13,6 @@ void display(List_ptr list)
   }
   NEW_LINE;
 }
-
 
 int main(void)
 {
@@ -53,6 +51,11 @@ int main(void)
       scanf("%d",&value);
       result = add_unique(list,value);
       break;
+
+    case 'l':
+      display(list);
+      result = Success;
+      break;
       
     }
     
@@ -61,7 +64,6 @@ int main(void)
     else
       printf("Something went wrong...");
 
-    display(list);
     display_menu();
     scanf("%c",&operation);
   }

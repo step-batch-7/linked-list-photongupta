@@ -1,7 +1,9 @@
 #include<stdio.h>
 #include "list.h"
 
-void display_menu(void){
+void display_menu(void)
+{
+  NEW_LINE;
   printf("Main Menu");
   NEW_LINE;
   printf("---------");
