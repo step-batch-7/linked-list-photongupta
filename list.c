@@ -163,14 +163,33 @@ Status remove_first_occurrence(List_ptr list, int value)
   if(!is_present(list,value))
     return status;
   Node_ptr p_walk = list->head;
-  int count = 1;
+  int postion = 1;
   while(p_walk->value != value)
   {
      p_walk = p_walk->next;
-     count++;
+     postion++;
   }
-  printf("%d",count);
-  remove_at(list,count);
+  remove_at(list,postion);
+  status = Success;
+  return status;
+}
+
+Status remove_all_occurrences(List_ptr list, int value)
+{
+  Status status = Failure;
+  if(!is_present(list,value))
+    return status;
+
+  Node_ptr p_walk = list->head;
+  for(int position = 1; p_walk!=NULL; position++)
+  {
+    if(p_walk->value == value)
+    {
+      remove_at(list,position);
+      position-=1;
+    }
+    p_walk = p_walk->next;
+  }
   status = Success;
   return status;
 }
