@@ -74,6 +74,10 @@ int main(void)
       while((getchar()) != '\n');
       status = remove_all_occurrences(list,value);
       break;
+    case 'j':
+      status = clear_list(list);
+      break;
+
 
     case 'k':
       printf("Enter the number to check if it is present in the list : ");

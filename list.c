@@ -194,6 +194,17 @@ Status remove_all_occurrences(List_ptr list, int value)
   return status;
 }
 
+Status clear_list(List_ptr list)
+{
+  Status status;
+  while(!EMPTY_LIST)
+  {
+    remove_from_end(list);
+  }
+  status = Success;
+  return status;
+}
+
 void display(List_ptr list)
 {
   printf("Elements of the list are : ");
