@@ -157,6 +157,24 @@ Status remove_at(List_ptr list, int position)
   return status;
 }
 
+Status remove_first_occurrence(List_ptr list, int value)
+{
+  Status status = Failure;
+  if(!is_present(list,value))
+    return status;
+  Node_ptr p_walk = list->head;
+  int count = 1;
+  while(p_walk->value != value)
+  {
+     p_walk = p_walk->next;
+     count++;
+  }
+  printf("%d",count);
+  remove_at(list,count);
+  status = Success;
+  return status;
+}
+
 void display(List_ptr list)
 {
   printf("Elements of the list are : ");
