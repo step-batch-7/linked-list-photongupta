@@ -21,6 +21,7 @@ int main(void)
   List_ptr list = create_list();
   display_menu();
   scanf("%c",&operation);
+  while((getchar()) != '\n');
 
   while(NOT_EXIT)
   {
@@ -28,27 +29,32 @@ int main(void)
 
     case 'a':
       printf("Enter the number you want to add at the end of the list : ");
-      scanf("%d",&value);
+      scanf("%d",&value); 
+      while((getchar()) != '\n');
       result = add_to_end(list,value);
       break;
       
     case 'b':
       printf("Enter the number you want to add at the start of the list : ");
       scanf("%d",&value);
+      while((getchar()) != '\n');
       result = add_to_start(list,value);
       break;
 
     case 'c':
       printf("Enter the number you want to insert in the list : ");
       scanf("%d",&value);
+      while((getchar()) != '\n');
       printf("Enter the position where you want to insert the number : ");
       scanf("%d",&position);
+      while((getchar()) != '\n');
       result = insert_at(list,value,position);
       break;
 
     case 'd':
       printf("Enter the unique number you want to add in the list : ");
       scanf("%d",&value);
+      while((getchar()) != '\n');
       result = add_unique(list,value);
       break;
 
@@ -70,6 +76,8 @@ int main(void)
 
     display_menu();
     scanf("%c",&operation);
+    while((getchar()) != '\n');
+
   }
   
   return 0;
