@@ -89,6 +89,27 @@ Status remove_from_start(List_ptr list)
   return status;
 }
 
+Status remove_from_end(List_ptr list)
+{ 
+  Status status = Success;
+  int counter = 1;
+  Node_ptr p_walk = list->head;
+  counter++;
+
+  while (counter < list->count)
+  {
+    Node_ptr next = p_walk->next;
+    p_walk = next;
+    counter++;
+  }
+  free(list->last);
+  list->last = p_walk;
+  p_walk->next = NULL;
+  list->count -= 1;
+  return status;
+}
+
+
 void destroy_list(List_ptr list)
 {
   Node_ptr p_walk = list->head;

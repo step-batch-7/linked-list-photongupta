@@ -62,6 +62,10 @@ int main(void)
       result = remove_from_start(list);
       break;
 
+    case 'f':
+      result = remove_from_end(list);
+      break;
+
     case 'l':
       display(list);
       result = Success;
