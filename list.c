@@ -97,19 +97,20 @@ Status remove_from_end(List_ptr list)
   Status status = Failure;
   if(EMPTY_LIST)
     return status;
-  int counter = 1;
+  Node_ptr p_walk_head = NULL;
   Node_ptr p_walk = list->head;
-  counter++;
 
-  while (counter < list->count)
+  while (p_walk->next!=NULL)
   {
-    Node_ptr next = p_walk->next;
-    p_walk = next;
-    counter++;
+    p_walk_head = p_walk;
+    p_walk = p_walk->next;
   }
-  free(list->last);
-  list->last = p_walk;
-  p_walk->next = NULL;
+  free(p_walk);
+  list->last= p_walk_head;
+  if(p_walk_head!=NULL)
+    p_walk_head->next = NULL;
+  else
+    list->head = p_walk_head;
   list->count -= 1;
   status = Success;
   return status;
@@ -128,6 +129,19 @@ Status is_present(List_ptr list, int value)
     p_walk = p_walk->next;
   }
   return status;
+}
+
+void display(List_ptr list)
+{
+  printf("Elements of the list are : ");
+  NEW_LINE;
+  Node_ptr p_walk = list->head;
+  while (p_walk != NULL)
+  {
+    printf("%d ",p_walk->value);
+    p_walk = p_walk->next;
+  }
+  NEW_LINE;
 }
 
 void destroy_list(List_ptr list)
