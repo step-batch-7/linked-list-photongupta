@@ -17,7 +17,8 @@ void display(List_ptr list)
 int main(void)
 {
   char operation;
-  int value,result,position;
+  int value,position;
+  Status status = Success;
   List_ptr list = create_list();
   display_menu();
   scanf("%c",&operation);
@@ -31,14 +32,14 @@ int main(void)
       printf("Enter the number you want to add at the end of the list : ");
       scanf("%d",&value); 
       while((getchar()) != '\n');
-      result = add_to_end(list,value);
+      status = add_to_end(list,value);
       break;
       
     case 'b':
       printf("Enter the number you want to add at the start of the list : ");
       scanf("%d",&value);
       while((getchar()) != '\n');
-      result = add_to_start(list,value);
+      status = add_to_start(list,value);
       break;
 
     case 'c':
@@ -48,32 +49,41 @@ int main(void)
       printf("Enter the position where you want to insert the number : ");
       scanf("%d",&position);
       while((getchar()) != '\n');
-      result = insert_at(list,value,position);
+      status = insert_at(list,value,position);
       break;
 
     case 'd':
       printf("Enter the unique number you want to add in the list : ");
       scanf("%d",&value);
       while((getchar()) != '\n');
-      result = add_unique(list,value);
+      status = add_unique(list,value);
       break;
 
     case 'e':
-      result = remove_from_start(list);
+      status = remove_from_start(list);
       break;
 
     case 'f':
-      result = remove_from_end(list);
+      status = remove_from_end(list);
+      break;
+
+    case 'k':
+      printf("Enter the number to check if it is present in the list : ");
+      scanf("%d",&value);
+      while((getchar()) != '\n');
+      if(is_present(list,value))
+        printf("number is present in the list.");
+      else 
+        printf("number is not in the list.");
       break;
 
     case 'l':
       display(list);
-      result = Success;
       break;
       
     }
     
-    if(result)
+    if(status)
       printf("Done");
     else
       printf("Something went wrong...");

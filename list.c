@@ -109,6 +109,20 @@ Status remove_from_end(List_ptr list)
   return status;
 }
 
+Status is_present(List_ptr list, int value)
+{
+  Status status = Failure;
+  Node_ptr p_walk = list->head;
+  while (p_walk != NULL)
+  {
+    if(p_walk->value == value){
+      status = Success;
+      return status;
+    }
+    p_walk = p_walk->next;
+  }
+  return status;
+}
 
 void destroy_list(List_ptr list)
 {

@@ -44,6 +44,7 @@ Status remove_at(List_ptr, int position);
 
 Status remove_first_occurrence(List_ptr, int value);
 Status remove_all_occurrences(List_ptr, int value);
+Status is_present(List_ptr, int value);
 
 Status clear_list(List_ptr); // Removes all elements in the list
 
