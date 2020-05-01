@@ -3,6 +3,7 @@
 
 #define NEW_LINE printf("\n")
 #define NOT_EXIT operation != 'm'
+#define EMPTY_LIST list->count == 0
 
 typedef enum
 {

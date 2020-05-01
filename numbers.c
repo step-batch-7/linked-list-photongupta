@@ -72,9 +72,10 @@ int main(void)
       scanf("%d",&value);
       while((getchar()) != '\n');
       if(is_present(list,value))
-        printf("number is present in the list.");
+        printf("%d is present in the list.",value);
       else 
-        printf("number is not in the list.");
+        printf("%d is not in the list.",value);
+      NEW_LINE;
       break;
 
     case 'l':

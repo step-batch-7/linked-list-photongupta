@@ -81,17 +81,22 @@ Status add_unique(List_ptr list, int value)
 
 Status remove_from_start(List_ptr list)
 { 
-  Status status = Success;
+  Status status = Failure;
+  if(EMPTY_LIST)
+    return status;
   Node_ptr first_node = list->head;
   list->head = first_node->next;
   free(first_node);
   list->count -= 1;
+  status = Success;
   return status;
 }
 
 Status remove_from_end(List_ptr list)
 { 
-  Status status = Success;
+  Status status = Failure;
+  if(EMPTY_LIST)
+    return status;
   int counter = 1;
   Node_ptr p_walk = list->head;
   counter++;
@@ -106,6 +111,7 @@ Status remove_from_end(List_ptr list)
   list->last = p_walk;
   p_walk->next = NULL;
   list->count -= 1;
+  status = Success;
   return status;
 }
 
