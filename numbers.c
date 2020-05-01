@@ -54,6 +54,14 @@ int main(void)
       status = remove_from_end(list);
       break;
 
+    case 'g':
+      printf("Enter the position which you want to remove from the list : ");
+      scanf("%d",&position);
+      while((getchar()) != '\n');
+      status = remove_at(list,position);
+      break;
+
+
     case 'k':
       printf("Enter the number to check if it is present in the list : ");
       scanf("%d",&value);

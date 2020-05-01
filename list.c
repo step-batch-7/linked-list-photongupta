@@ -1,5 +1,6 @@
 #include "list.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 Node_ptr create_node(int value)
 {
@@ -48,18 +49,17 @@ Status insert_at(List_ptr list, int value, int position)
   if(position > list->count + 1)
     return status;
 
-  int count=1;
+  if(position == 1)
+    return add_to_start(list, value);
+
   Node_ptr p_walk = list->head;
-  count++;
-  while(count<position)
+  for(int count = 1; count < position - 1; count++)
   {
     p_walk = p_walk->next;
-    count++;
   }
   Node_ptr new_node = create_node(value);
-  Node_ptr temp_node =p_walk->next;
+  new_node->next =p_walk->next;
   p_walk->next = new_node;
-  new_node->next = temp_node;
   list->count += 1;
   status = Success;
   return status;
@@ -97,20 +97,20 @@ Status remove_from_end(List_ptr list)
   Status status = Failure;
   if(EMPTY_LIST)
     return status;
-  Node_ptr p_walk_head = NULL;
+  Node_ptr temp = NULL;
   Node_ptr p_walk = list->head;
 
   while (p_walk->next!=NULL)
   {
-    p_walk_head = p_walk;
+    temp = p_walk;
     p_walk = p_walk->next;
   }
   free(p_walk);
-  list->last= p_walk_head;
-  if(p_walk_head!=NULL)
-    p_walk_head->next = NULL;
+  list->last= temp;
+  if(temp != NULL)
+    temp->next = NULL;
   else
-    list->head = p_walk_head;
+    list->head = temp;
   list->count -= 1;
   status = Success;
   return status;
@@ -128,6 +128,32 @@ Status is_present(List_ptr list, int value)
     }
     p_walk = p_walk->next;
   }
+  return status;
+}
+
+Status remove_at(List_ptr list, int position)
+{
+  Status status = Failure;
+  if(position>list->count)
+    return status;
+    
+  if(position == 1)
+    return remove_from_start(list);
+
+  if(position == list->count)
+    return remove_from_end(list);
+    
+  Node_ptr temp_node;
+  Node_ptr p_walk = list->head;
+  for(int count = 1; count < position; count++)
+  {
+    temp_node = p_walk;
+    p_walk = p_walk->next;
+  }
+  temp_node->next =p_walk->next;
+  free(p_walk);
+  list->count -= 1;
+  status = Success;
   return status;
 }
 
