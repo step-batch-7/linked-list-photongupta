@@ -26,39 +26,35 @@ int is_list_empty(List_ptr list)
 
 Status add_to_end(List_ptr list, int value)
 { 
-  Status status = Failure;
   Node_ptr new_node = create_node(value);
   if(new_node == NULL)
-    return status;
+    return Failure;
   if (list->head == NULL)
     list->head = new_node;
   else
     list->last->next = new_node;
   list->last = new_node;
   list->count += 1;
-  return status;
+  return Success;
 }
 
 Status add_to_start(List_ptr list, int value)
 { 
-  Status status = Failure;
   Node_ptr new_node = create_node(value);
   if(new_node == NULL)
-    return status;
+    return Failure;
   Node_ptr previous_first_node = list->head;
   list->head = new_node;
   new_node->next = previous_first_node;
   list->count += 1;
-  status = Success;
-  return status;
+  return Success;
 }
 
 Status insert_at(List_ptr list, int value, int position)
 {
-  Status status = Failure;
   Node_ptr new_node = create_node(value);
   if(new_node == NULL || position > list->count + 1 || position < 1)
-    return status;
+    return Failure;
 
   if(position == 1)
     return add_to_start(list, value);
@@ -70,18 +66,16 @@ Status insert_at(List_ptr list, int value, int position)
   new_node->next =p_walk->next;
   p_walk->next = new_node;
   list->count += 1;
-  status = Success;
-  return status;
+  return Success;
 }
 
 Status add_unique(List_ptr list, int value)
 { 
-  Status status = Success;
   Node_ptr p_walk = list->head;
   while (p_walk != NULL)
   {
     if(p_walk->value == value)
-      return status;
+      return Success;
     p_walk = p_walk->next;
   }
   return add_to_end(list,value);
@@ -89,25 +83,22 @@ Status add_unique(List_ptr list, int value)
 
 Status remove_from_start(List_ptr list)
 { 
-  Status status = Failure;
   if(is_list_empty(list))
-    return status;
+    return Failure;
   Node_ptr first_node = list->head;
   list->head = first_node->next;
   free(first_node);
   list->count -= 1;
-  status = Success;
-  return status;
+  return Success;
 }
 
 Status remove_from_end(List_ptr list)
 { 
-  Status status = Failure;
   if(is_list_empty(list))
-    return status;
+    return Failure;
+
   Node_ptr temp = NULL;
   Node_ptr p_walk = list->head;
-
   while (p_walk->next!=NULL)
   {
     temp = p_walk;
@@ -120,30 +111,26 @@ Status remove_from_end(List_ptr list)
   else
     list->head = temp;
   list->count -= 1;
-  status = Success;
-  return status;
+  return Success;
 }
 
 Status is_present(List_ptr list, int value)
 {
-  Status status = Failure;
   Node_ptr p_walk = list->head;
   while (p_walk != NULL)
   {
     if(p_walk->value == value){
-      status = Success;
-      return status;
+      return Success;
     }
     p_walk = p_walk->next;
   }
-  return status;
+  return Failure;
 }
 
 Status remove_at(List_ptr list, int position)
 {
-  Status status = Failure;
   if(position > list->count || position < 1)
-    return status;
+    return Failure;
     
   if(position == 1)
     return remove_from_start(list);
@@ -161,21 +148,23 @@ Status remove_at(List_ptr list, int position)
   temp_node->next =p_walk->next;
   free(p_walk);
   list->count -= 1;
-  status = Success;
-  return status;
+  return Success;
 }
 
 Status remove_first_occurrence(List_ptr list, int value)
 {
-  Status status = is_present(list,value);
-  if(!status)
-    return status;
+  if(!is_present(list,value))
+    return Failure;
 
   Node_ptr p_walk = list->head;
-  for(int position = 1; p_walk->value != value; position++)
+  int position = 1;
+  while(p_walk->value != value)
+  {
      p_walk = p_walk->next;
+     position++;
+  }
 
-  return remove_at(list,postion);
+  return remove_at(list,position);
 }
 
 Status remove_all_occurrences(List_ptr list, int value)
