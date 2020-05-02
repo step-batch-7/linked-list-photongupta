@@ -13,7 +13,7 @@ int main(void)
 {
   char operation;
   int value,position;
-  Status status = Success;
+  Status status;
   List_ptr list = create_list();
   display_menu();
   operation = getchar();
@@ -87,10 +87,12 @@ int main(void)
       else 
         printf("%d is not in the list.",value);
       NEW_LINE;
+      status = Success;
       break;
 
     case 'l':
       display(list);
+      status = Success;
       break;
     }
     

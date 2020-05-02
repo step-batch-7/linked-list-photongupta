@@ -169,8 +169,8 @@ Status remove_first_occurrence(List_ptr list, int value)
 
 Status remove_all_occurrences(List_ptr list, int value)
 {
-  Status status = is_present(list,value);
-  if(!status)
+  Status status = Failure;
+  if(!is_present(list,value))
     return status;
 
   Node_ptr p_walk = list->head;
