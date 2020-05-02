@@ -196,19 +196,6 @@ Status clear_list(List_ptr list)
   return status;
 }
 
-void display(List_ptr list)
-{
-  printf("Elements of the list are : ");
-  NEW_LINE;
-  Node_ptr p_walk = list->head;
-  while (p_walk != NULL)
-  {
-    printf("%d ",p_walk->value);
-    p_walk = p_walk->next;
-  }
-  NEW_LINE;
-}
-
 void destroy_list(List_ptr list)
 {
   Node_ptr p_walk = list->head;

@@ -1,6 +1,27 @@
 #include<stdio.h>
 #include "list.h"
 
+void display_status(Status status)
+{
+  if(status)
+    printf("Done");
+  else
+    printf("Something went wrong...");
+}
+
+void display_list(List_ptr list)
+{
+  printf("Elements of the list are : ");
+  NEW_LINE;
+  Node_ptr p_walk = list->head;
+  while (p_walk != NULL)
+  {
+    printf("%d ",p_walk->value);
+    p_walk = p_walk->next;
+  }
+  NEW_LINE;
+}
+
 void display_menu(void)
 {
   NEW_LINE;

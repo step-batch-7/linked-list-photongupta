@@ -19,7 +19,7 @@ int main(void)
   operation = getchar();
   while((getchar()) != '\n');
 
-  while(operation != 'm')
+  while(operation != EXIT)
   {
     switch (operation){
 
@@ -91,16 +91,12 @@ int main(void)
       break;
 
     case 'l':
-      display(list);
+      display_list(list);
       status = Success;
       break;
     }
     
-    if(status)
-      printf("Done");
-    else
-      printf("Something went wrong...");
-
+    display_status(status);
     display_menu();
     operation = getchar();
     while((getchar()) != '\n');
