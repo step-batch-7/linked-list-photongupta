@@ -19,7 +19,7 @@ int main(void)
   operation = getchar();
   while((getchar()) != '\n');
 
-  while(NOT_EXIT)
+  while(operation != 'm')
   {
     switch (operation){
 
@@ -92,7 +92,6 @@ int main(void)
     case 'l':
       display(list);
       break;
-      
     }
     
     if(status)

@@ -2,8 +2,6 @@
 #define __LIST_H
 
 #define NEW_LINE printf("\n")
-#define NOT_EXIT operation != 'm'
-#define EMPTY_LIST list->count == 0
 
 typedef enum
 {
@@ -38,6 +36,7 @@ Status insert_at(List_ptr, int value, int position);
 Status add_unique(List_ptr, int value);
 
 void display(List_ptr);
+int is_list_empty(List_ptr);
 
 Status remove_from_start(List_ptr);
 Status remove_from_end(List_ptr);

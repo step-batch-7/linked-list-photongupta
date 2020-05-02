@@ -19,6 +19,11 @@ List_ptr create_list(void)
   return list;
 }
 
+int is_list_empty(List_ptr list)
+{
+  return list->count == 0;
+}
+
 Status add_to_end(List_ptr list, int value)
 { 
   Status status = Success;
@@ -82,7 +87,7 @@ Status add_unique(List_ptr list, int value)
 Status remove_from_start(List_ptr list)
 { 
   Status status = Failure;
-  if(EMPTY_LIST)
+  if(is_list_empty(list))
     return status;
   Node_ptr first_node = list->head;
   list->head = first_node->next;
@@ -95,7 +100,7 @@ Status remove_from_start(List_ptr list)
 Status remove_from_end(List_ptr list)
 { 
   Status status = Failure;
-  if(EMPTY_LIST)
+  if(is_list_empty(list))
     return status;
   Node_ptr temp = NULL;
   Node_ptr p_walk = list->head;
@@ -197,7 +202,7 @@ Status remove_all_occurrences(List_ptr list, int value)
 Status clear_list(List_ptr list)
 {
   Status status;
-  while(!EMPTY_LIST)
+  while(!is_list_empty(list))
   {
     remove_from_end(list);
   }
