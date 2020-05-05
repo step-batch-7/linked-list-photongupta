@@ -22,31 +22,47 @@ void print_result(int result)
   NEW_LINE;
 }
 
-void test_add_to_end()
+void test_add_to_start()
 {
   NEW_LINE;
-  printf("# add_to_end");
+  printf("# add_to_start");
   NEW_LINE;
   List_ptr list = create_list();
+
   int previous_length = list->count;
-  printf("should add the number at the end of the empty list : ");
-  Status status = add_to_end(list, 5);
-  int result = status == Success && list->count == previous_length + 1 && is_number_present_at(list, 0, 5);
+  printf("should add the number at the start if the list is empty : ");
+  Status status = add_to_start(list, 1);
+  int result = status == Success && list->count == previous_length + 1 && is_number_present_at(list, 0, 1);
   print_result(result);
+
+  previous_length = list->count;
+  printf("should add the number at the start of the list : ");
+  status = add_to_start(list, 2);
+  result = status == Success && list->count == previous_length + 1 && is_number_present_at(list, 0, 2);
+  print_result(result);
+
   destroy_list(list);
   NEW_LINE;
 }
 
-void test_add_to_start()
+void test_add_to_end()
 {
-  printf("# add_to_start");
+  printf("# add_to_end");
   NEW_LINE;
   List_ptr list = create_list();
+
   int previous_length = list->count;
-  printf("should add the number at the start of the list : ");
-  Status status = add_to_start(list, 5);
-  int result = status == Success && list->count == previous_length + 1 && is_number_present_at(list, 0, 5);
+  printf("should add the number at the end if the list is empty : ");
+  Status status = add_to_end(list, 1);
+  int result = status == Success && list->count == previous_length + 1 && is_number_present_at(list, 0, 1);
   print_result(result);
+
+  previous_length = list->count;
+  printf("should add the number at the end of the list : ");
+  status = add_to_end(list, 2);
+  result = status == Success && list->count == previous_length + 1 && is_number_present_at(list, 1, 2);
+  print_result(result);
+
   destroy_list(list);
   NEW_LINE;
 }
@@ -94,13 +110,14 @@ void test_add_unique()
   List_ptr list = create_list();
   add_to_end(list, 1);
   add_to_end(list, 2);
-  int previous_length = list->count;
 
+  int previous_length = list->count;
   printf("should not add if number is in the list : ");
   Status status = add_unique(list, 1);
   int result = status == Failure && list->count == previous_length && !is_number_present_at(list, 2, 1);
   print_result(result);
 
+  previous_length = list->count;
   printf("should add if number is not present in the list : ");
   status = add_unique(list, 5);
   result = status == Success && list->count == previous_length + 1 && is_number_present_at(list, 2, 5);
@@ -116,14 +133,15 @@ void test_remove_from_start()
   NEW_LINE;
   List_ptr list = create_list();
 
-  printf("should return failure for empty list : ");
+  int previous_length = list->count;
+  printf("should not remove if the list is empty : ");
   Status status = remove_from_start(list);
-  int result = status == Failure;
+  int result = status == Failure && list->count == previous_length;
   print_result(result);
 
   add_to_end(list, 1);
   add_to_end(list, 2);
-  int previous_length = list->count;
+  previous_length = list->count;
   printf("should remove the number from start of the list : ");
   status = remove_from_start(list);
   result = status == Success && list->count == previous_length - 1 && is_number_present_at(list, 0, 2);
@@ -139,14 +157,15 @@ void test_remove_from_end()
   NEW_LINE;
   List_ptr list = create_list();
 
-  printf("should return failure for empty list : ");
+  int previous_length = list->count;
+  printf("should not remove if the list is empty : ");
   Status status = remove_from_end(list);
-  int result = status == Failure;
+  int result = status == Failure && list->count == previous_length;
   print_result(result);
 
   add_to_end(list, 1);
   add_to_end(list, 2);
-  int previous_length = list->count;
+  previous_length = list->count;
   printf("should remove the number from end of the list : ");
   status = remove_from_end(list);
   result = status == Success && list->count == previous_length - 1 && !is_number_present_at(list, 1, 2);
@@ -156,14 +175,54 @@ void test_remove_from_end()
   NEW_LINE;
 }
 
+void test_remove_at()
+{
+  printf("# remove_at");
+  NEW_LINE;
+  List_ptr list = create_list();
+
+  int previous_length = list->count;
+  printf("should not remove if the list is empty: ");
+  Status status = remove_at(list, 2);
+  int result = status == Failure && list->count == previous_length;
+  print_result(result);
+
+  add_to_end(list, 1);
+  add_to_end(list, 2);
+  add_to_end(list, 3);
+  add_to_end(list, 4);
+  add_to_end(list, 5);
+  previous_length = list->count;
+  printf("should remove from the last position of the list: ");
+  status = remove_at(list, 4);
+  result = status == Success && list->count == previous_length - 1 && !is_number_present_at(list, 4, 5);
+  print_result(result);
+
+  previous_length = list->count;
+  printf("should remove from the 0th position of the list: ");
+  status = remove_at(list, 0);
+  result = status == Success && list->count == previous_length - 1 && !is_number_present_at(list, 0, 1);
+  print_result(result);
+
+  previous_length = list->count;
+  printf("should remove from the given position of the list: ");
+  status = remove_at(list, 1);
+  result = status == Success && list->count == previous_length - 1 && !is_number_present_at(list, 1, 3);
+  print_result(result);
+
+  destroy_list(list);
+  NEW_LINE;
+}
+
 void run_tests()
 {
-  test_add_to_end();
   test_add_to_start();
+  test_add_to_end();
+  test_insert_at();
+  test_add_unique();
   test_remove_from_start();
   test_remove_from_end();
-  test_add_unique();
-  test_insert_at();
+  test_remove_at();
 }
 
 int main(void)
