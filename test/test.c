@@ -214,9 +214,9 @@ void test_remove_at()
   NEW_LINE;
 }
 
-void test_remove_first_occurrance()
+void test_remove_first_occurrence()
 {
-  printf("# remove_first_occurrance");
+  printf("# remove_first_occurrence");
   NEW_LINE;
   List_ptr list = create_list();
 
@@ -246,6 +246,41 @@ void test_remove_first_occurrance()
   NEW_LINE;
 }
 
+void test_remove_all_occurrences()
+{
+  printf("# remove_all_occurrences");
+  NEW_LINE;
+  List_ptr list = create_list();
+
+  int previous_length = list->count;
+  printf("should not remove if the list is empty : ");
+  Status status = remove_all_occurrences(list, 1);
+  int result = status == Failure && list->count == previous_length;
+  print_result(result);
+
+  add_to_end(list, 1);
+  add_to_end(list, 2);
+  add_to_end(list, 3);
+  add_to_end(list, 2);
+  previous_length = list->count;
+  printf("should remove all occurrences of the given number from list : ");
+  status = remove_all_occurrences(list, 2);
+  result = status == Success &&
+           list->count == previous_length - 2 &&
+           !is_number_present_at(list, 1, 2) &&
+           !is_number_present_at(list, 3, 2);
+  print_result(result);
+
+  previous_length = list->count;
+  printf("should not remove if the list doesn't contain the given number : ");
+  status = remove_all_occurrences(list, 5);
+  result = status == Failure && list->count == previous_length;
+  print_result(result);
+
+  destroy_list(list);
+  NEW_LINE;
+}
+
 void run_tests()
 {
   test_add_to_start();
@@ -255,7 +290,8 @@ void run_tests()
   test_remove_from_start();
   test_remove_from_end();
   test_remove_at();
-  test_remove_first_occurrance();
+  test_remove_first_occurrence();
+  test_remove_all_occurrences();
 }
 
 int main(void)
