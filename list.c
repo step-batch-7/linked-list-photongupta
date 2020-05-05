@@ -75,7 +75,7 @@ Status add_unique(List_ptr list, int value)
   while (p_walk != NULL)
   {
     if (p_walk->value == value)
-      return Success;
+      return Failure;
     p_walk = p_walk->next;
   }
   return add_to_end(list, value);
