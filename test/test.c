@@ -1,38 +1,50 @@
 #include "../list.h"
 #include <stdio.h>
 
-void print_status(Status status)
+void print_result(int result)
 {
-  if (status)
+  if (result)
     printf("✅");
   else
     printf("❌");
   NEW_LINE;
 }
 
-void run_add_to_start(List_ptr list)
+void test_add_to_start()
 {
+  List_ptr list = create_list();
+  int previous_length = list->count;
   printf("should add the number at the start of the list : ");
   Status status = add_to_start(list, 5);
-  print_status(status);
+  int result = status == Success && list->count == previous_length + 1;
+  print_result(result);
+  destroy_list(list);
 }
 
-void run_add_to_end(List_ptr list)
+void test_add_to_end()
 {
+  List_ptr list = create_list();
+  int previous_length = list->count;
   printf("should add the number at the end of the list : ");
   Status status = add_to_end(list, 5);
-  print_status(status);
+  int result = status == Success && list->count == previous_length + 1;
+  print_result(result);
+  destroy_list(list);
+}
+
+void run_tests()
+{
+  test_add_to_end();
+  test_add_to_start();
 }
 
 int main(void)
 {
-  List_ptr list = create_list();
   printf("Testing start");
   NEW_LINE;
   printf(".............");
   NEW_LINE;
-  run_add_to_end(list);
-  run_add_to_start(list);
+  run_tests();
   printf(".............");
   NEW_LINE;
   printf("Testing end");
