@@ -51,6 +51,30 @@ void test_add_to_end()
   NEW_LINE;
 }
 
+void test_add_unique()
+{
+  NEW_LINE;
+  printf("# add_unique");
+  NEW_LINE;
+  List_ptr list = create_list();
+  add_to_end(list, 1);
+  add_to_end(list, 2);
+  int previous_length = list->count;
+
+  printf("should not add if number is in the list : ");
+  Status status = add_unique(list, 1);
+  int result = status == Failure && list->count == previous_length && !is_number_present_at(list, 2, 1);
+  print_result(result);
+
+  printf("should add if number is not present in the list : ");
+  status = add_unique(list, 5);
+  result = status == Success && list->count == previous_length + 1 && is_number_present_at(list, 2, 5);
+  print_result(result);
+
+  destroy_list(list);
+  NEW_LINE;
+}
+
 void test_remove_from_start()
 {
   printf("# remove_from_start");
@@ -65,10 +89,11 @@ void test_remove_from_start()
   add_to_end(list, 1);
   add_to_end(list, 2);
   int previous_length = list->count;
-  printf("should remove the number from end of the list : ");
+  printf("should remove the number from start of the list : ");
   status = remove_from_start(list);
   result = status == Success && list->count == previous_length - 1 && is_number_present_at(list, 0, 2);
   print_result(result);
+
   destroy_list(list);
   NEW_LINE;
 }
@@ -91,6 +116,7 @@ void test_remove_from_end()
   status = remove_from_end(list);
   result = status == Success && list->count == previous_length - 1 && !is_number_present_at(list, 1, 2);
   print_result(result);
+
   destroy_list(list);
   NEW_LINE;
 }
@@ -101,6 +127,7 @@ void run_tests()
   test_add_to_start();
   test_remove_from_start();
   test_remove_from_end();
+  test_add_unique();
 }
 
 int main(void)
