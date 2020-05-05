@@ -281,6 +281,33 @@ void test_remove_all_occurrences()
   NEW_LINE;
 }
 
+void test_clear_list()
+{
+  printf("# clear_list");
+  NEW_LINE;
+  List_ptr list = create_list();
+
+  printf("should clear the empty list : ");
+  Status status = clear_list(list);
+  int result = status == Success && list->count == 0;
+  print_result(result);
+
+  add_to_end(list, 1);
+  add_to_end(list, 2);
+  add_to_end(list, 3);
+  printf("should remove all the elements present in the list : ");
+  status = clear_list(list);
+  result = status == Success &&
+           list->count == 0 &&
+           !is_number_present_at(list, 0, 1) &&
+           !is_number_present_at(list, 1, 2) &&
+           !is_number_present_at(list, 2, 3);
+  print_result(result);
+
+  destroy_list(list);
+  NEW_LINE;
+}
+
 void run_tests()
 {
   test_add_to_start();
@@ -292,6 +319,7 @@ void run_tests()
   test_remove_at();
   test_remove_first_occurrence();
   test_remove_all_occurrences();
+  test_clear_list();
 }
 
 int main(void)
