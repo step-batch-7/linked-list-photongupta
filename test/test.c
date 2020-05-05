@@ -24,6 +24,8 @@ void print_result(int result)
 
 void test_add_to_start()
 {
+  printf("# add_to_start");
+  NEW_LINE;
   List_ptr list = create_list();
   int previous_length = list->count;
   printf("should add the number at the start of the list : ");
@@ -31,10 +33,14 @@ void test_add_to_start()
   int result = status == Success && list->count == previous_length + 1 && is_number_present_at(list, 0, 5);
   print_result(result);
   destroy_list(list);
+  NEW_LINE;
 }
 
 void test_add_to_end()
 {
+  NEW_LINE;
+  printf("# add_to_end");
+  NEW_LINE;
   List_ptr list = create_list();
   int previous_length = list->count;
   printf("should add the number at the end of the empty list : ");
@@ -42,10 +48,13 @@ void test_add_to_end()
   int result = status == Success && list->count == previous_length + 1 && is_number_present_at(list, 0, 5);
   print_result(result);
   destroy_list(list);
+  NEW_LINE;
 }
 
 void test_remove_from_start()
 {
+  printf("# remove_from_start");
+  NEW_LINE;
   List_ptr list = create_list();
 
   printf("should return failure for empty list : ");
@@ -61,6 +70,29 @@ void test_remove_from_start()
   result = status == Success && list->count == previous_length - 1 && is_number_present_at(list, 0, 2);
   print_result(result);
   destroy_list(list);
+  NEW_LINE;
+}
+
+void test_remove_from_end()
+{
+  printf("# remove_from_end");
+  NEW_LINE;
+  List_ptr list = create_list();
+
+  printf("should return failure for empty list : ");
+  Status status = remove_from_end(list);
+  int result = status == Failure;
+  print_result(result);
+
+  add_to_end(list, 1);
+  add_to_end(list, 2);
+  int previous_length = list->count;
+  printf("should remove the number from end of the list : ");
+  status = remove_from_end(list);
+  result = status == Success && list->count == previous_length - 1 && !is_number_present_at(list, 1, 2);
+  print_result(result);
+  destroy_list(list);
+  NEW_LINE;
 }
 
 void run_tests()
@@ -68,18 +100,14 @@ void run_tests()
   test_add_to_end();
   test_add_to_start();
   test_remove_from_start();
+  test_remove_from_end();
 }
 
 int main(void)
 {
-  printf("Testing start");
-  NEW_LINE;
-  printf(".............");
+  printf("Testing start.............");
   NEW_LINE;
   run_tests();
-  printf(".............");
-  NEW_LINE;
-  printf("Testing end");
-
+  printf(".............Testing end");
   return 0;
 }
