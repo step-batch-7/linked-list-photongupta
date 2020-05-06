@@ -30,6 +30,11 @@ void assert_ok(int value)
   print_status(value);
 }
 
+void assert_is_null(Node_ptr value)
+{
+  print_status(value == NULL);
+}
+
 int is_number_present_at(List_ptr list, int position, int value)
 {
   if (position > list->count - 1 || position < 0)

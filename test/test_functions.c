@@ -1,9 +1,36 @@
 #include "test.h"
 #include <stdio.h>
 
-void test_add_to_start()
+void test_create_node()
 {
   NEW_LINE;
+  describe("# create_node");
+  Node_ptr node = create_node(1);
+
+  it("Should create a node with given value: ");
+  assert_int(node->value, 1);
+  assert_is_null(node->next);
+  NEW_LINE;
+}
+
+void test_create_list()
+{
+  NEW_LINE;
+  describe("# create_node");
+  List_ptr list = create_list();
+
+  it("Should create list with count 0: ");
+  assert_int(list->count, 0);
+  assert_is_null(list->head);
+  assert_is_null(list->last);
+  NEW_LINE;
+
+  destroy_list(list);
+  NEW_LINE;
+}
+
+void test_add_to_start()
+{
   describe("# add_to_start");
   List_ptr list = create_list();
 

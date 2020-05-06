@@ -8,8 +8,12 @@ void it(Char_ptr);
 void describe(Char_ptr);
 void assert_int(int,int);
 void assert_ok(int);
+void assert_is_null(Node_ptr);
 int is_number_present_at(List_ptr, int, int);
 
+void test_create_node();
+void test_create_list();
+void test_add_to_start();
 void test_add_to_start();
 void test_add_to_end();
 void test_insert_at();
