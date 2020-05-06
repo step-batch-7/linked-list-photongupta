@@ -6,9 +6,9 @@ typedef char *Char_ptr;
 
 void it(Char_ptr);
 void describe(Char_ptr);
-void assert_int(int,int);
-void assert_ok(int);
-void assert_is_null(Node_ptr);
+void assert_int(int,int,Char_ptr);
+void assert_ok(int,Char_ptr);
+void assert_is_null(Node_ptr,Char_ptr);
 int is_number_present_at(List_ptr, int, int);
 
 void test_create_node();

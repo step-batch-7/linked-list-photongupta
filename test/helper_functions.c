@@ -3,36 +3,45 @@
 
 void describe(Char_ptr message)
 {
+  NEW_LINE;
   printf("%s", message);
   NEW_LINE;
 }
 
 void it(Char_ptr message)
 {
+  NEW_LINE;
   printf("%s", message);
 }
 
 void print_status(int status)
 {
   if (status)
-    printf("✅");
+    printf("✅ ");
   else
-    printf("❌");
+    printf("❌ ");
 }
 
-void assert_int(int actual, int expected)
+void assert_int(int actual, int expected, Char_ptr message)
 {
+  NEW_LINE;
   print_status(actual == expected);
+  printf("%s", message);
 }
 
-void assert_ok(int value)
+void assert_ok(int value, Char_ptr message)
 {
+  NEW_LINE;
   print_status(value);
+  printf("%s", message);
 }
 
-void assert_is_null(Node_ptr value)
+void assert_is_null(Node_ptr value, Char_ptr message)
 {
+  NEW_LINE;
   print_status(value == NULL);
+  printf("%s", message);
+  // printf(" : ");
 }
 
 int is_number_present_at(List_ptr list, int position, int value)
