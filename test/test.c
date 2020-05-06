@@ -1,6 +1,37 @@
 #include "../list.h"
 #include <stdio.h>
 
+typedef char *char_ptr;
+
+void describe(char_ptr message)
+{
+  printf("%s", message);
+  NEW_LINE;
+}
+
+void it(char_ptr message)
+{
+  printf("%s", message);
+}
+
+void print_status(int status)
+{
+  if (status)
+    printf("✅");
+  else
+    printf("❌");
+}
+
+void assert_int(int actual, int expected)
+{
+  print_status(actual == expected);
+}
+
+void assert_ok(int value)
+{
+  print_status(value);
+}
+
 int is_number_present_at(List_ptr list, int position, int value)
 {
   if (position > list->count - 1 || position < 0)
@@ -13,33 +44,23 @@ int is_number_present_at(List_ptr list, int position, int value)
   return p_walk->value == value;
 }
 
-void print_result(int result)
-{
-  if (result)
-    printf("✅");
-  else
-    printf("❌");
-  NEW_LINE;
-}
-
 void test_add_to_start()
 {
   NEW_LINE;
-  printf("# add_to_start");
-  NEW_LINE;
+  describe("# add_to_start");
   List_ptr list = create_list();
 
-  int previous_length = list->count;
-  printf("Should add the number at the start if the list is empty : ");
-  Status status = add_to_start(list, 1);
-  int result = status == Success && list->count == previous_length + 1 && is_number_present_at(list, 0, 1);
-  print_result(result);
+  it("Should add the number at the start if the list is empty : ");
+  assert_int(add_to_start(list, 1), Success);
+  assert_int(list->count, 1);
+  assert_ok(is_number_present_at(list, 0, 1));
+  NEW_LINE;
 
-  previous_length = list->count;
-  printf("Should add the number at the start of the list : ");
-  status = add_to_start(list, 2);
-  result = status == Success && list->count == previous_length + 1 && is_number_present_at(list, 0, 2);
-  print_result(result);
+  it("Should add the number at the start of the list : ");
+  assert_int(add_to_start(list, 2), Success);
+  assert_int(list->count, 2);
+  assert_ok(is_number_present_at(list, 0, 2));
+  NEW_LINE;
 
   destroy_list(list);
   NEW_LINE;
@@ -47,21 +68,20 @@ void test_add_to_start()
 
 void test_add_to_end()
 {
-  printf("# add_to_end");
-  NEW_LINE;
+  describe("# add_to_end");
   List_ptr list = create_list();
 
-  int previous_length = list->count;
-  printf("Should add the number at the end if the list is empty : ");
-  Status status = add_to_end(list, 1);
-  int result = status == Success && list->count == previous_length + 1 && is_number_present_at(list, 0, 1);
-  print_result(result);
+  it("Should add the number at the end if the list is empty : ");
+  assert_int(add_to_end(list, 1), Success);
+  assert_int(list->count, 1);
+  assert_ok(is_number_present_at(list, 0, 1));
+  NEW_LINE;
 
-  previous_length = list->count;
-  printf("Should add the number at the end of the list : ");
-  status = add_to_end(list, 2);
-  result = status == Success && list->count == previous_length + 1 && is_number_present_at(list, 1, 2);
-  print_result(result);
+  it("Should add the number at the end of the list : ");
+  assert_int(add_to_end(list, 2), Success);
+  assert_int(list->count, 2);
+  assert_ok(is_number_present_at(list, 1, 2));
+  NEW_LINE;
 
   destroy_list(list);
   NEW_LINE;
@@ -69,35 +89,34 @@ void test_add_to_end()
 
 void test_insert_at()
 {
-  printf("# insert_at");
-  NEW_LINE;
+  describe("# insert_at");
   List_ptr list = create_list();
   add_to_end(list, 1);
   add_to_end(list, 2);
 
-  int previous_length = list->count;
-  printf("Should insert at 0th position in the list : ");
-  Status status = insert_at(list, 3, 0);
-  int result = status == Success && list->count == previous_length + 1 && is_number_present_at(list, 0, 3);
-  print_result(result);
+  it("Should insert at 0th position in the list : ");
+  assert_int(insert_at(list, 3, 0), Success);
+  assert_int(list->count, 3);
+  assert_ok(is_number_present_at(list, 0, 3));
+  NEW_LINE;
 
-  previous_length = list->count;
-  printf("Should insert at last position in the list : ");
-  status = insert_at(list, 4, 3);
-  result = status == Success && list->count == previous_length + 1 && is_number_present_at(list, 3, 4);
-  print_result(result);
+  it("Should insert at last position in the list : ");
+  assert_int(insert_at(list, 4, 3), Success);
+  assert_int(list->count, 4);
+  assert_ok(is_number_present_at(list, 3, 4));
+  NEW_LINE;
 
-  previous_length = list->count;
-  printf("Should insert at given position in the list : ");
-  status = insert_at(list, 5, 2);
-  result = status == Success && list->count == previous_length + 1 && is_number_present_at(list, 2, 5);
-  print_result(result);
+  it("Should insert at given position in the list : ");
+  assert_int(insert_at(list, 5, 2), Success);
+  assert_int(list->count, 5);
+  assert_ok(is_number_present_at(list, 2, 5));
+  NEW_LINE;
 
-  previous_length = list->count;
-  printf("Should not insert if the given position is invalid : ");
-  status = insert_at(list, 6, 10);
-  result = status == Failure && list->count == previous_length && !is_number_present_at(list, 10, 6);
-  print_result(result);
+  it("Should not insert if the given position is invalid : ");
+  assert_int(insert_at(list, 6, 10), Failure);
+  assert_int(list->count, 5);
+  assert_ok(!is_number_present_at(list, 10, 6));
+  NEW_LINE;
 
   destroy_list(list);
   NEW_LINE;
@@ -105,23 +124,22 @@ void test_insert_at()
 
 void test_add_unique()
 {
-  printf("# add_unique");
-  NEW_LINE;
+  describe("# add_unique");
   List_ptr list = create_list();
   add_to_end(list, 1);
   add_to_end(list, 2);
 
-  int previous_length = list->count;
-  printf("Should not add if number is in the list : ");
-  Status status = add_unique(list, 1);
-  int result = status == Failure && list->count == previous_length && !is_number_present_at(list, 2, 1);
-  print_result(result);
+  it("Should not add if number is in the list : ");
+  assert_int(add_unique(list, 1), Failure);
+  assert_int(list->count, 2);
+  assert_ok(!is_number_present_at(list, 2, 1));
+  NEW_LINE;
 
-  previous_length = list->count;
-  printf("Should add if number is not present in the list : ");
-  status = add_unique(list, 5);
-  result = status == Success && list->count == previous_length + 1 && is_number_present_at(list, 2, 5);
-  print_result(result);
+  it("Should add if number is not present in the list : ");
+  assert_int(add_unique(list, 3), Success);
+  assert_int(list->count, 3);
+  assert_ok(is_number_present_at(list, 2, 3));
+  NEW_LINE;
 
   destroy_list(list);
   NEW_LINE;
@@ -129,23 +147,21 @@ void test_add_unique()
 
 void test_remove_from_start()
 {
-  printf("# remove_from_start");
-  NEW_LINE;
+  describe("# remove_from_start");
   List_ptr list = create_list();
 
-  int previous_length = list->count;
-  printf("Should not remove if the list is empty : ");
-  Status status = remove_from_start(list);
-  int result = status == Failure && list->count == previous_length;
-  print_result(result);
+  it("Should not remove if the list is empty : ");
+  assert_int(remove_from_start(list), Failure);
+  assert_int(list->count, 0);
+  NEW_LINE;
 
   add_to_end(list, 1);
   add_to_end(list, 2);
-  previous_length = list->count;
-  printf("Should remove the number from start of the list : ");
-  status = remove_from_start(list);
-  result = status == Success && list->count == previous_length - 1 && is_number_present_at(list, 0, 2);
-  print_result(result);
+  it("Should remove the number from start of the list : ");
+  assert_int(remove_from_start(list), Success);
+  assert_int(list->count, 1);
+  assert_ok(is_number_present_at(list, 0, 2));
+  NEW_LINE;
 
   destroy_list(list);
   NEW_LINE;
@@ -153,23 +169,21 @@ void test_remove_from_start()
 
 void test_remove_from_end()
 {
-  printf("# remove_from_end");
-  NEW_LINE;
+  describe("# remove_from_end");
   List_ptr list = create_list();
 
-  int previous_length = list->count;
-  printf("Should not remove if the list is empty : ");
-  Status status = remove_from_end(list);
-  int result = status == Failure && list->count == previous_length;
-  print_result(result);
+  it("Should not remove if the list is empty : ");
+  assert_int(remove_from_end(list), Failure);
+  assert_int(list->count, 0);
+  NEW_LINE;
 
   add_to_end(list, 1);
   add_to_end(list, 2);
-  previous_length = list->count;
-  printf("Should remove the number from end of the list : ");
-  status = remove_from_end(list);
-  result = status == Success && list->count == previous_length - 1 && !is_number_present_at(list, 1, 2);
-  print_result(result);
+  it("Should remove the number from end of the list : ");
+  assert_int(remove_from_end(list), Success);
+  assert_int(list->count, 1);
+  assert_ok(!is_number_present_at(list, 1, 2));
+  NEW_LINE;
 
   destroy_list(list);
   NEW_LINE;
@@ -177,38 +191,41 @@ void test_remove_from_end()
 
 void test_remove_at()
 {
-  printf("# remove_at");
-  NEW_LINE;
+  describe("# remove_at");
   List_ptr list = create_list();
 
-  int previous_length = list->count;
-  printf("Should not remove if the list is empty: ");
-  Status status = remove_at(list, 2);
-  int result = status == Failure && list->count == previous_length;
-  print_result(result);
+  it("Should not remove if the list is empty: ");
+  assert_int(remove_at(list, 1), Failure);
+  assert_int(list->count, 0);
+  NEW_LINE;
 
   add_to_end(list, 1);
   add_to_end(list, 2);
   add_to_end(list, 3);
   add_to_end(list, 4);
   add_to_end(list, 5);
-  previous_length = list->count;
-  printf("Should remove from the last position of the list: ");
-  status = remove_at(list, 4);
-  result = status == Success && list->count == previous_length - 1 && !is_number_present_at(list, 4, 5);
-  print_result(result);
+  it("Should remove from the last position of the list: ");
+  assert_int(remove_at(list, 4), Success);
+  assert_int(list->count, 4);
+  assert_ok(!is_number_present_at(list, 4, 5));
+  NEW_LINE;
 
-  previous_length = list->count;
-  printf("Should remove from the 0th position of the list: ");
-  status = remove_at(list, 0);
-  result = status == Success && list->count == previous_length - 1 && !is_number_present_at(list, 0, 1);
-  print_result(result);
+  it("Should remove from the 0th position of the list: ");
+  assert_int(remove_at(list, 0), Success);
+  assert_int(list->count, 3);
+  assert_ok(!is_number_present_at(list, 0, 1));
+  NEW_LINE;
 
-  previous_length = list->count;
-  printf("Should remove from the given position of the list: ");
-  status = remove_at(list, 1);
-  result = status == Success && list->count == previous_length - 1 && !is_number_present_at(list, 1, 3);
-  print_result(result);
+  it("Should remove from the given position of the list: ");
+  assert_int(remove_at(list, 1), Success);
+  assert_int(list->count, 2);
+  assert_ok(!is_number_present_at(list, 1, 3));
+  NEW_LINE;
+
+  it("Should not remove if given position is invalid : ");
+  assert_int(remove_at(list, 10), Failure);
+  assert_int(list->count, 2);
+  NEW_LINE;
 
   destroy_list(list);
   NEW_LINE;
@@ -216,31 +233,29 @@ void test_remove_at()
 
 void test_remove_first_occurrence()
 {
-  printf("# remove_first_occurrence");
-  NEW_LINE;
+  describe("# remove_first_occurrence");
   List_ptr list = create_list();
 
   int previous_length = list->count;
-  printf("Should not remove if the list is empty : ");
-  Status status = remove_first_occurrence(list, 1);
-  int result = status == Failure && list->count == previous_length;
-  print_result(result);
+  it("Should not remove if the list is empty : ");
+  assert_int(remove_first_occurrence(list, 1), Failure);
+  assert_int(list->count, 0);
+  NEW_LINE;
 
   add_to_end(list, 1);
   add_to_end(list, 2);
   add_to_end(list, 3);
   add_to_end(list, 2);
-  previous_length = list->count;
-  printf("Should remove the first occurrence of the given number from list : ");
-  status = remove_first_occurrence(list, 2);
-  result = status == Success && list->count == previous_length - 1 && !is_number_present_at(list, 1, 2);
-  print_result(result);
+  it("Should remove the first occurrence of the given number from list : ");
+  assert_int(remove_first_occurrence(list, 2), Success);
+  assert_int(list->count, 3);
+  assert_ok(!is_number_present_at(list, 1, 2));
+  NEW_LINE;
 
-  previous_length = list->count;
-  printf("Should not remove if the list doesn't contain the given number : ");
-  status = remove_first_occurrence(list, 5);
-  result = status == Failure && list->count == previous_length;
-  print_result(result);
+  it("Should not remove if the list doesn't contain the given number : ");
+  assert_int(remove_first_occurrence(list, 5), Failure);
+  assert_int(list->count, 3);
+  NEW_LINE;
 
   destroy_list(list);
   NEW_LINE;
@@ -248,34 +263,27 @@ void test_remove_first_occurrence()
 
 void test_remove_all_occurrences()
 {
-  printf("# remove_all_occurrences");
-  NEW_LINE;
+  describe("# remove_all_occurrences");
   List_ptr list = create_list();
 
-  int previous_length = list->count;
-  printf("Should not remove if the list is empty : ");
-  Status status = remove_all_occurrences(list, 1);
-  int result = status == Failure && list->count == previous_length;
-  print_result(result);
+  it("Should not remove if the list is empty : ");
+  assert_int(remove_all_occurrences(list, 1), Failure);
+  assert_int(list->count, 0);
+  NEW_LINE;
 
   add_to_end(list, 1);
   add_to_end(list, 2);
   add_to_end(list, 3);
   add_to_end(list, 2);
-  previous_length = list->count;
-  printf("Should remove all occurrences of the given number from list : ");
-  status = remove_all_occurrences(list, 2);
-  result = status == Success &&
-           list->count == previous_length - 2 &&
-           !is_number_present_at(list, 1, 2) &&
-           !is_number_present_at(list, 3, 2);
-  print_result(result);
+  it("Should remove all occurrences of the given number from list : ");
+  assert_int(remove_all_occurrences(list, 2), Success);
+  assert_int(list->count, 2);
+  NEW_LINE;
 
-  previous_length = list->count;
-  printf("Should not remove if the list doesn't contain the given number : ");
-  status = remove_all_occurrences(list, 5);
-  result = status == Failure && list->count == previous_length;
-  print_result(result);
+  it("Should not remove if the list doesn't contain the given number : ");
+  assert_int(remove_all_occurrences(list, 5), Failure);
+  assert_int(list->count, 2);
+  NEW_LINE;
 
   destroy_list(list);
   NEW_LINE;
@@ -283,26 +291,21 @@ void test_remove_all_occurrences()
 
 void test_clear_list()
 {
-  printf("# clear_list");
-  NEW_LINE;
+  describe("# clear_list");
   List_ptr list = create_list();
 
-  printf("Should clear the empty list : ");
-  Status status = clear_list(list);
-  int result = status == Success && list->count == 0;
-  print_result(result);
+  it("Should clear the empty list : ");
+  assert_int(clear_list(list), Success);
+  assert_int(list->count, 0);
+  NEW_LINE;
 
   add_to_end(list, 1);
   add_to_end(list, 2);
   add_to_end(list, 3);
-  printf("Should remove all the elements present in the list : ");
-  status = clear_list(list);
-  result = status == Success &&
-           list->count == 0 &&
-           !is_number_present_at(list, 0, 1) &&
-           !is_number_present_at(list, 1, 2) &&
-           !is_number_present_at(list, 2, 3);
-  print_result(result);
+  it("Should remove all the elements present in the list : ");
+  assert_int(clear_list(list), Success);
+  assert_int(list->count, 0);
+  NEW_LINE;
 
   destroy_list(list);
   NEW_LINE;
@@ -310,21 +313,20 @@ void test_clear_list()
 
 void test_is_present()
 {
-  printf("# is_present");
-  NEW_LINE;
+  describe("# is_present");
   List_ptr list = create_list();
   add_to_end(list, 1);
   add_to_end(list, 2);
 
-  printf("Should not validate if the given number isn't in the list : ");
-  Status status = is_present(list, 5);
-  int result = status == Failure;
-  print_result(result);
+  it("Should not validate if the given number isn't in the list : ");
+  assert_int(is_present(list, 5), Failure);
+  assert_int(list->count, 2);
+  NEW_LINE;
 
-  printf("Should validate if the given number is present in the list : ");
-  status = is_present(list, 2);
-  result = status == Success;
-  print_result(result);
+  it("Should validate if the given number is present in the list : ");
+  assert_int(is_present(list, 1), Success);
+  assert_int(list->count, 2);
+  NEW_LINE;
 
   destroy_list(list);
   NEW_LINE;
