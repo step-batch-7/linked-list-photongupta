@@ -14,32 +14,39 @@ void it(Char_ptr message)
   printf("%s", message);
 }
 
-void print_status(int status)
+void print_status(int status, Test_report_ptr test_watcher)
 {
   if (status)
+  {
+    test_watcher->passed++;
     printf("✅ ");
+  }
   else
+  {
+    test_watcher->failed++;
     printf("❌ ");
+  }
+  test_watcher->total++;
 }
 
-void assert_int(int actual, int expected, Char_ptr message)
+void assert_int(int actual, int expected, Char_ptr message, Test_report_ptr test_watcher)
 {
   NEW_LINE;
-  print_status(actual == expected);
+  print_status(actual == expected, test_watcher);
   printf("%s", message);
 }
 
-void assert_ok(int value, Char_ptr message)
+void assert_ok(int value, Char_ptr message, Test_report_ptr test_watcher)
 {
   NEW_LINE;
-  print_status(value);
+  print_status(value, test_watcher);
   printf("%s", message);
 }
 
-void assert_is_null(Node_ptr value, Char_ptr message)
+void assert_is_null(Node_ptr value, Char_ptr message, Test_report_ptr test_watcher)
 {
   NEW_LINE;
-  print_status(value == NULL);
+  print_status(value == NULL, test_watcher);
   printf("%s", message);
   // printf(" : ");
 }
