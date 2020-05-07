@@ -1,5 +1,6 @@
 #include "test.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void test_create_node(Test_report_ptr test_watcher)
 {
@@ -10,6 +11,8 @@ void test_create_node(Test_report_ptr test_watcher)
   it("Should create a node with given value: ");
   assert_int(node->value, 1, "should pass the value", test_watcher);
   assert_is_null(node->next, "next should be null", test_watcher);
+
+  free(node);
   NEW_LINE;
 }
 

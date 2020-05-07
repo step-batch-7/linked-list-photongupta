@@ -24,7 +24,7 @@ void print(Test_report_ptr test_report)
   int total = test_report->total;
   int passed = test_report->passed;
   int failed = test_report->failed;
-  printf("\n_____________REPORT____________\n\n");
+  printf("\n_____________REPORT_____________\n\n");
   printf("✅ Passed :\t%02d \t %.1f%% \n", passed, percentage(total, passed));
   printf("❌ Failed :\t%02d \t %.1f%% \n", failed, percentage(total, failed));
   printf("\n* Total tests : %d\n", total);
