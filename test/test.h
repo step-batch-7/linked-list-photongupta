@@ -18,6 +18,7 @@ void assert_int(int,int,Char_ptr,  Test_report_ptr);
 void assert_ok(int,Char_ptr,  Test_report_ptr);
 void assert_is_null(Node_ptr,Char_ptr,  Test_report_ptr);
 int is_number_present_at(List_ptr, int, int);
+float percentage(int,int);
 
 void test_create_node(  Test_report_ptr);
 void test_create_list(  Test_report_ptr);
@@ -33,6 +34,6 @@ void test_remove_first_occurrence(  Test_report_ptr);
 void test_remove_all_occurrences(  Test_report_ptr);
 void test_clear_list(  Test_report_ptr);
 void test_is_present(  Test_report_ptr);
-  Test_report_ptr run_tests(  Test_report_ptr);
+Test_report_ptr run_tests(  Test_report_ptr);
 
 #endif

@@ -48,7 +48,6 @@ void assert_is_null(Node_ptr value, Char_ptr message, Test_report_ptr test_watch
   NEW_LINE;
   print_status(value == NULL, test_watcher);
   printf("%s", message);
-  // printf(" : ");
 }
 
 int is_number_present_at(List_ptr list, int position, int value)
@@ -61,4 +60,9 @@ int is_number_present_at(List_ptr list, int position, int value)
     p_walk = p_walk->next;
 
   return p_walk->value == value;
+}
+
+float percentage(int total, int value)
+{
+  return (100 * value) / total;
 }
